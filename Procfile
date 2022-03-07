@@ -1,1 +1,1 @@
-web: gunicorn app:routes_without_auth
+web: gunicorn routes_without_auth:routes_without_auth
