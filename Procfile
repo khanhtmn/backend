@@ -1,1 +1,1 @@
-web: gunicorn routes_without_auth:routes_without_auth
+web: flask run
