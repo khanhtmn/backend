@@ -1,0 +1,17 @@
+[
+    {
+        "email": "khanh@uni.minerva.edu",
+        "password": "123456"
+    },
+    {
+        "firstname": "Khanh",
+        "lastname": "Nguyen",
+        "role": "student",
+        "primary_major": "Computer Science"
+    },
+    {
+        "title": "Capstone Hub",
+        "abstract": "This is the abstract of the Capstone Hub project",
+        "keywords": "website"
+    }
+]
