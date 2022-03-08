@@ -9,8 +9,8 @@ from models import *
 
 #### MAIN ####
 # Import csv file for students' data
-df = pd.read_csv(r'/home/khanh/Documents/capstone-hub/backend/M22_Capstone_descriptions.csv')
-
+# df = pd.read_csv(r'/home/khanh/Documents/capstone-hub/backend/M22_Capstone_descriptions.csv')
+df = pd.read_csv(r'/app/M22_Capstone_descriptions.csv')
 
 # Function to create lists of data to inject to Models
 """
