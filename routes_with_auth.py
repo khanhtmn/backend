@@ -92,11 +92,11 @@ def login_user():
             # https://stackoverflow.com/questions/48570320/how-to-send-and-receive-jwt-token
             # return jsonify({'token': jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])})
         else:
-            data = {'message': 'Could not verify 2', 'WWW.Authentication': 'Basic realm: "login required"'}
+            data = {'message': 'Wrong password', 'WWW.Authentication': 'Basic realm: "login required"'}
             response = make_response(jsonify(data=data, status=401))
             return response
     except:    
-        data = {'message': 'Could not verify 3', 'WWW.Authentication': 'Basic realm: "login required"'}
+        data = {'message': """User doesn't exist. Please register""", 'WWW.Authentication': 'Basic realm: "login required"'}
         response = make_response(jsonify(data=data, status=401))
         return response
 
