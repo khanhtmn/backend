@@ -10,7 +10,11 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ProductionConfig(Config):
-    pass
+    DEBUG = False
+    DEVELOPMENT = False
+    SECRET_KEY = os.getenv("SECRET_KEY", "this-is-the-default-key")
+    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI", "postgresql:///capstone_database")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class StagingConfig(Config):
     DEBUG = True
