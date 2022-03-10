@@ -486,7 +486,7 @@ def search_projects():
         tq = sqlalchemy.func.plainto_tsquery('english', search_string)
         q = UserProject.query.filter(UserProject.__ts_vector__.op('@@')(tq))
     elif not search_string:
-        q = UserProject.query.all()
+        q = UserProject.query
 
     return jsonify(serialize_many(
         q.all()
