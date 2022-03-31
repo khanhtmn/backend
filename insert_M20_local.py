@@ -3,6 +3,8 @@ This module is used to insert csv file to the database
 """
 
 import pandas as pd
+from werkzeug.security import generate_password_hash
+
 from models import * 
 from utils import create_list_of_data
 
@@ -18,6 +20,8 @@ college_conversion = {
     "SS": "Social Sciences",
     "N/A": ""
 }
+
+hashed_password = generate_password_hash("Minerva20", method='sha256')
 
 # Create email, major, minor
 names = []
@@ -75,7 +79,7 @@ df["minor"] = minors
 logins_cols = ["id", "public_id", "email"]
 logins_data_cols = ["id", "id","email"]
 logins_default_cols = ["password"]
-logins_default_vals = ["Minerva20"]
+logins_default_vals = [hashed_password]
 logins_to_add = create_list_of_data(\
     data=df,\
     data_cols=logins_data_cols,\

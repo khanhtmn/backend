@@ -33,7 +33,7 @@ class Login(db.Model):
     __tablename__ = 'logins'
 
     id = db.Column(db.Integer, primary_key=True)
-    public_id = db.Column(db.Integer) 
+    public_id = db.Column(db.String())
     email = db.Column(db.String(120), index=True, unique=True)
     password = db.Column(db.String(128)) # hashed_password
 
@@ -84,7 +84,7 @@ class UserProject(db.Model):
 
     __ts_vector__ = to_tsvector_ix(
         'name', 'primary_major', 'secondary_major', 'primary_concentration', 'secondary_concentration', 'special_concentration', 'minor', 'minor_concentration',
-        'title', 'abstract', 'keywords', 'feature', 'hsr_review', 'skills', 'los', 'custom_los', 'advisor', 'skills_offering', 'skills_requesting', 'location',
+        'title', 'abstract', 'prospectus_description', 'cp_courses', 'keywords', 'feature', 'hsr_review', 'skills', 'los', 'custom_los', 'advisor', 'skills_offering', 'skills_requesting', 'location', 'additional_information'
     )
 
     __table_args__ = (

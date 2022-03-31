@@ -3,8 +3,12 @@ This module is used to insert csv file to the database
 """
 
 import pandas as pd
+from werkzeug.security import generate_password_hash
+
 from models import * 
 from utils import create_list_of_data
+
+hashed_password = generate_password_hash("Minerva21", method='sha256')
 
 #### MAIN ####
 # Import csv file for students' data
@@ -14,7 +18,7 @@ df = pd.read_csv(r'/home/khanh/Documents/capstone-hub-backend/csv_files/M21_Caps
 logins_cols = ["id", "public_id", "email"]
 logins_data_cols = ["id", "id","email"]
 logins_default_cols = ["password"]
-logins_default_vals = ["Minerva21"]
+logins_default_vals = [hashed_password]
 logins_to_add = create_list_of_data(\
     data=df,\
     data_cols=logins_data_cols,\
