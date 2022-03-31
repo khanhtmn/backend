@@ -3,7 +3,6 @@ attrs==21.2.0
 click==8.0.3
 Flask==2.0.2
 Flask-Cors==3.0.10
-flask-marshmallow==0.14.0
 Flask-Migrate==3.1.0
 Flask-SQLAlchemy==2.5.1
 greenlet==1.1.2
@@ -15,8 +14,6 @@ itsdangerous==2.0.1
 Jinja2==3.0.2
 Mako==1.1.5
 MarkupSafe==2.0.1
-marshmallow==3.14.0
-marshmallow-sqlalchemy==0.26.1
 numpy==1.22.2
 packaging==21.3
 pandas==1.4.0

@@ -33,7 +33,7 @@ class Login(db.Model):
     __tablename__ = 'logins'
 
     id = db.Column(db.Integer, primary_key=True)
-    public_id = db.Column(db.Integer) 
+    public_id = db.Column(db.String())
     email = db.Column(db.String(120), index=True, unique=True)
     password = db.Column(db.String(128)) # hashed_password
 
