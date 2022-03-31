@@ -506,7 +506,8 @@ def serialize_many(items):
     return list_json_of_items
 
 @app.route("/search", methods=["GET"])
-def search_projects():
+@token_required
+def search_projects(current_user):
 
     """Full-text search function by Postgres"""
 

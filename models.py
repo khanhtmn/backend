@@ -84,7 +84,7 @@ class UserProject(db.Model):
 
     __ts_vector__ = to_tsvector_ix(
         'name', 'primary_major', 'secondary_major', 'primary_concentration', 'secondary_concentration', 'special_concentration', 'minor', 'minor_concentration',
-        'title', 'abstract', 'keywords', 'feature', 'hsr_review', 'skills', 'los', 'custom_los', 'advisor', 'skills_offering', 'skills_requesting', 'location',
+        'title', 'abstract', 'prospectus_description', 'cp_courses', 'keywords', 'feature', 'hsr_review', 'skills', 'los', 'custom_los', 'advisor', 'skills_offering', 'skills_requesting', 'location', 'additional_information'
     )
 
     __table_args__ = (
