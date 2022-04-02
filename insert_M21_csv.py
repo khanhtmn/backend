@@ -12,8 +12,8 @@ from utils import create_list_of_data
 
 #### MAIN ####
 # Import csv file for students' data
-df = pd.read_csv(r'/home/khanh/Documents/capstone-hub-backend/csv_files/M21_Capstone_information.csv')
-# df = pd.read_csv(r'/app/M22_Capstone_descriptions.csv')
+# df = pd.read_csv(r'/home/khanh/Documents/capstone-hub-backend/csv_files/M21_Capstone_information.csv')
+df = pd.read_csv(r'/app/csv_files/M21_Capstone_information.csv')
 
 hashed_password = generate_password_hash("Minerva21", method='sha256')
 

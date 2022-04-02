@@ -12,8 +12,8 @@ from utils import create_list_of_data
 
 #### MAIN ####
 # Import csv file for students' data
-df = pd.read_csv(r'/home/khanh/Documents/capstone-hub-backend/csv_files/M20_Student_Capstone_List.csv')
-# df = pd.read_csv(r'/app/M22_Capstone_descriptions.csv')
+# df = pd.read_csv(r'/home/khanh/Documents/capstone-hub-backend/csv_files/M20_Student_Capstone_List.csv')
+df = pd.read_csv(r'/app/csv_files/M20_Student_Capstone_List.csv')
 
 college_conversion = {
     "CS": "Computational Sciences",
