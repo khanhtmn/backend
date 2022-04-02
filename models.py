@@ -1,6 +1,6 @@
-'''
+"""
 Define models for database schema
-'''
+"""
 
 # from sqlalchemy.sql import func
     
@@ -14,6 +14,7 @@ from app import db
 
 CONFIG = 'english'
 
+# Create tsvector for Postgres fulltext search
 def to_tsvector_ix(*columns):
     s = " || ' ' || ".join(columns)
     return func.to_tsvector(CONFIG, text(s))
@@ -33,7 +34,7 @@ class Login(db.Model):
     __tablename__ = 'logins'
 
     id = db.Column(db.Integer, primary_key=True)
-    public_id = db.Column(db.Integer) 
+    public_id = db.Column(db.String())
     email = db.Column(db.String(120), index=True, unique=True)
     password = db.Column(db.String(128)) # hashed_password
 
@@ -62,6 +63,7 @@ class UserProject(db.Model):
 
     title = db.Column(db.String())
     abstract = db.Column(db.String())
+    project_link = db.Column(db.String())
     keywords = db.Column(db.String())
     feature = db.Column(db.String())
     hsr_review = db.Column(db.String())
@@ -76,6 +78,7 @@ class UserProject(db.Model):
 
     logins = relationship(Login)
 
+    # Define the tsvector for Postgres fulltext search
     __ts_vector__ = to_tsvector_ix(
         'name', 'primary_major', 'secondary_major', 'primary_concentration', 'secondary_concentration', 'special_concentration', 'minor', 'minor_concentration',
         'title', 'abstract', 'keywords', 'feature', 'hsr_review', 'skills', 'los', 'custom_los', 'advisor', 'skills_offering', 'skills_requesting', 'location',

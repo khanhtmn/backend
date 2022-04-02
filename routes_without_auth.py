@@ -1,6 +1,7 @@
-'''
+"""
 Module with all APIs and to run the app
-'''
+with authentication DISABLED for DEVELOPMENT
+"""
 
 
 # Import all the necessary modules and packages
