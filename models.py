@@ -62,11 +62,6 @@ class UserProject(db.Model):
 
     title = db.Column(db.String())
     abstract = db.Column(db.String())
-    project_link = db.Column(db.String())
-    prospectus_description = db.Column(db.String())
-    prospectus_link = db.Column(db.String())
-    prospectus_secondary_file = db.Column(db.String())
-    cp_courses = db.Column(db.String())
     keywords = db.Column(db.String())
     feature = db.Column(db.String())
     hsr_review = db.Column(db.String())
@@ -77,7 +72,6 @@ class UserProject(db.Model):
     skills_offering = db.Column(db.String())
     skills_requesting = db.Column(db.String())
     location = db.Column(db.String())
-    additional_information = db.Column(db.String())
     last_updated = db.Column(db.DateTime, index=True, default=datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S'))
 
     logins = relationship(Login)

@@ -1,14 +1,55 @@
 """
-This module is used to insert csv file to the database
+This module is used to import data from the csv file to the database
 """
 
 import pandas as pd
-from models import * 
-from utils import create_list_of_data
+from datetime import datetime
+from models import *
+
 
 #### MAIN ####
 # Import csv file for students' data
-df = pd.read_csv(r'/home/khanh/Documents/capstone-hub-backend/csv_files/M22_Capstone_info.csv')
+# df = pd.read_csv(r'/home/khanh/Documents/capstone-hub/backend/M22_Capstone_descriptions.csv')
+df = pd.read_csv(r'/app/M22_Capstone_descriptions.csv')
+
+# Function to create lists of data to inject to Models
+"""
+Take data and put to dictionary
+"""
+def create_list_of_data(data, data_cols, model_cols, default_cols=None, default_vals=None):
+    """
+    Input:
+    dataframe data: Source of data
+    list[str] data_cols: Column names from the df data
+    list[str] model_cols: Column names from the db model
+    list[str] default_cols: Default columns
+    list[str] default_vals: Default values for the default columns
+
+    Output:
+    list[dict] table_to_insert: Table to insert to database
+    """
+    n = len(data_cols)
+    table_to_insert = []
+
+    for index, row in data.iterrows():
+        row_data = dict()
+        for i in range(n):
+            model_col = model_cols[i]
+            data_col = data_cols[i]
+            row_value = row[data_col]
+            if data_col == "timestamp":
+                datetime_object = datetime.strptime(row_value, '%m/%d/%Y %H:%M:%S')
+                row_data[model_col] = datetime_object
+            else:
+                # Do normal stuffs
+                row_data[model_col] = row_value
+        if default_cols:
+            for i in range(len(default_cols)):
+                row_data[default_cols[i]] = default_vals[i]
+        table_to_insert.append(row_data)
+
+    return table_to_insert
+
 
 # Logins model
 logins_cols = ["id", "public_id", "email"]
@@ -23,6 +64,16 @@ logins_to_add = create_list_of_data(\
     default_vals=logins_default_vals\
     )
 
+# UserProject model
+users_cols = ["id", "login_id", "name",\
+            "primary_major", "secondary_major",\
+            "primary_concentration", "secondary_concentration",\
+            "special_concentration", "minor", "minor_concentration"]
+users_data_cols = ["id", "id", "name",\
+                "primary_major", "second_major",\
+                "primary_concentration", "second_concentration",\
+                "special_concentration", "minor", "minor_concentration"]
+
 # Columns in projects model
 user_projects_cols = ["id", "user_id", "name",\
             "primary_major", "secondary_major",\
@@ -31,7 +82,7 @@ user_projects_cols = ["id", "user_id", "name",\
             "title", "abstract",\
             "keywords", "feature", "hsr_review", "skills",\
             "los", "custom_los", "advisor", "skills_offering",\
-            "skills_requesting", "last_updated"]
+            "skills_requesting", "location", "last_updated"]
 
 # Columns from CSV file
 user_projects_data_cols = ["id", "id", "name",\
@@ -41,7 +92,7 @@ user_projects_data_cols = ["id", "id", "name",\
             "title", "abstract",\
             "keywords", "features", "hsr_status", "skills",\
             "los", "custom_los", "advisor", "skills_offering",\
-            "skills_requesting", "timestamp"]
+            "skills_requesting", "location", "timestamp"]
 
 # Default columns and their default values
 user_projects_default_cols = ["class_year"]

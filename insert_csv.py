@@ -1,16 +1,16 @@
 """
-This module is used to import data from the csv file to the database
+This module is used to insert csv file to the database
 """
 
 import pandas as pd
 from datetime import datetime
-from models import *
+from models import * 
 
 
 #### MAIN ####
 # Import csv file for students' data
-# df = pd.read_csv(r'/home/khanh/Documents/capstone-hub/backend/M22_Capstone_descriptions.csv')
-df = pd.read_csv(r'/app/M22_Capstone_descriptions.csv')
+df = pd.read_csv(r'/home/khanh/Documents/capstone-hub/backend/M22_Capstone_descriptions.csv')
+
 
 # Function to create lists of data to inject to Models
 """
@@ -64,42 +64,52 @@ logins_to_add = create_list_of_data(\
     default_vals=logins_default_vals\
     )
 
-# Columns in projects model
-user_projects_cols = ["id", "user_id", "name",\
+# Users model
+users_cols = ["id", "login_id", "name",\
             "primary_major", "secondary_major",\
             "primary_concentration", "secondary_concentration",\
-            "special_concentration", "minor", "minor_concentration",\
-            "project_link", "title", "abstract",\
-            "keywords", "feature", "hsr_review", "skills",\
-            "los", "custom_los", "advisor", "skills_offering",\
-            "skills_requesting", "additional_information", "last_updated"]
-
-# Columns from CSV file
-user_projects_data_cols = ["id", "id", "name",\
-            "primary_major", "second_major",\
-            "primary_concentration", "second_concentration",\
-            "special_concentration", "minor", "minor_concentration",\
-            "project_link", "title", "abstract",\
-            "keywords", "features", "hsr_status", "skills",\
-            "los", "custom_los", "advisor", "skills_offering",\
-            "skills_requesting", "additional_information", "timestamp"]
-
-# Default columns and their default values
-user_projects_default_cols = ["class_year"]
-user_projects_default_vals = [2022]
-
-# Create list of data from all columns and values above
-user_projects_to_add = create_list_of_data(\
+            "special_concentration", "minor", "minor_concentration"]
+users_data_cols = ["id", "id", "name",\
+                "primary_major", "second_major",\
+                "primary_concentration", "second_concentration",\
+                "special_concentration", "minor", "minor_concentration"]
+users_default_cols = ["class_year"]
+users_default_vals = [2022]
+users_to_add = create_list_of_data(\
     data=df,\
-    data_cols=user_projects_data_cols,\
-    model_cols=user_projects_cols,\
-    default_cols=user_projects_default_cols,\
-    default_vals=user_projects_default_vals\
+    data_cols=users_data_cols,\
+    model_cols=users_cols,\
+    default_cols=users_default_cols,\
+    default_vals=users_default_vals\
+    )
+
+print(users_to_add[:1])
+print(len(users_to_add))
+
+
+# Projects model
+projects_cols = ["id", "user_id", "title", "abstract",\
+                "keywords", "feature", "hsr_review", "skills",\
+                "los", "custom_los", "advisor", "skills_offering",\
+                "skills_requesting", "location", "last_updated"]
+projects_data_cols = ["id", "id", "title", "abstract",\
+                "keywords", "features", "hsr_status", "skills",\
+                "los", "custom_los", "advisor", "skills_offering",\
+                "skills_requesting", "location", "timestamp"]
+projects_to_add = create_list_of_data(\
+    data=df,\
+    data_cols=projects_data_cols,\
+    model_cols=projects_cols,\
     )
 
 
 def insert_data():
-    """To insert data generated above to the database"""
+    """To insert data"""
+    # import sqlite3
+
+    # db = sqlite3.connect("database.db")
+    # cur = db.cursor()
+
 
     # Create application context to add data to the database
     from app import create_app
@@ -107,7 +117,7 @@ def insert_data():
     my_app.app_context().push()
 
     # List of keys with (list_of_data, model) to iterate
-    keys = [(logins_to_add, Login), (user_projects_to_add, UserProject)]
+    keys = [(logins_to_add, Login), (users_to_add, User), (projects_to_add, Project)]
     # Insert data
     for dict_to_add, table in keys:
         for dict_row in dict_to_add:

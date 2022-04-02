@@ -142,11 +142,6 @@ def projects():
                         "minor_concentration": project.minor_concentration,
                         "title": project.title,
                         "abstract": project.abstract,
-                        "project_link": project.project_link,
-                        "prospectus_description": project.prospectus_description,
-                        "prospectus_link": project.prospectus_link,
-                        "prospectus_secondary_file": project.prospectus_secondary_file,
-                        "cp_courses": project.cp_courses,
                         "keywords": project.keywords,
                         "feature": project.feature,
                         "hsr_review": project.hsr_review,
@@ -157,7 +152,6 @@ def projects():
                         "skills_offering": project.skills_offering,
                         "skills_requesting": project.skills_requesting,
                         "location": project.location,
-                        "additional_information": project.additional_information,
                         "last_updated": project.last_updated,
                     }
                 )
@@ -202,11 +196,6 @@ def get_project_by_id(project_id):
 
                     "title": project_info.title,
                     "abstract": project_info.abstract,
-                    "project_link": project_info.project_link,
-                    "prospectus_description": project_info.prospectus_description,
-                    "prospectus_link": project_info.prospectus_link,
-                    "prospectus_secondary_file": project_info.prospectus_secondary_file,
-                    "cp_courses": project_info.cp_courses,
                     "keywords": project_info.keywords,
                     "feature": project_info.feature,
                     "hsr_review": project_info.hsr_review,
@@ -217,7 +206,6 @@ def get_project_by_id(project_id):
                     "skills_offering": project_info.skills_offering,
                     "skills_requesting": project_info.skills_requesting,
                     "location": project_info.location,
-                    "additional_information": project_info.additional_information,
                     "last_updated": project_info.last_updated,
             }
             response = make_response(jsonify(data=data, status=200))
@@ -284,24 +272,6 @@ def update_project_by_id(project_id):
 
                 if 'abstract' in request_data:
                     project_info.abstract = request_data['abstract']
-
-                if 'project_link' in request_data:
-                    project_info.project_link = request_data['project_link']
-
-                if 'prospectus_description' in request_data:
-                    project_info.prospectus_description = request_data['prospectus_description']
-
-                if 'prospectus_link' in request_data:
-                    project_info.prospectus_link = request_data['prospectus_link']
-
-                if 'prospectus_secondary_file' in request_data:
-                    project_info.prospectus_secondary_file = request_data['prospectus_secondary_file']
-
-                if 'cp_courses' in request_data:
-                    project_info.cp_courses = request_data['cp_courses']
-
-                if 'additional_information' in request_data:
-                    project_info.additional_information = request_data['additional_information']
 
                 if 'keywords' in request_data:
                     project_info.keywords = request_data['keywords']             
@@ -425,24 +395,6 @@ def create_new_project():
                 if 'abstract' in request_data:
                     abstract = request_data['abstract']
 
-                if 'project_link' in request_data:
-                    project_link = request_data['project_link']
-
-                if 'prospectus_description' in request_data:
-                    prospectus_description = request_data['prospectus_description']
-
-                if 'prospectus_link' in request_data:
-                    prospectus_link = request_data['prospectus_link']
-
-                if 'prospectus_secondary_file' in request_data:
-                    prospectus_secondary_file = request_data['prospectus_secondary_file']
-
-                if 'cp_courses' in request_data:
-                    cp_courses = request_data['cp_courses']
-
-                if 'additional_information' in request_data:
-                    additional_information = request_data['additional_information']
-
                 if 'keywords' in request_data:
                     keywords = request_data['keywords']
 
@@ -480,7 +432,7 @@ def create_new_project():
 
 
                 new_project = UserProject(
-                    name=name, class_year=class_year, primary_major=primary_major, secondary_major=secondary_major, primary_concentration=primary_concentration, secondary_concentration=secondary_concentration, special_concentration=special_concentration, minor=minor, minor_concentration=minor_concentration,title=title, abstract=abstract,project_link=project_link, prospectus_description=prospectus_description,prospectus_link=prospectus_link, prospectus_secondary_file=prospectus_secondary_file, cp_courses=cp_courses,keywords=keywords, feature=feature, hsr_review=hsr_review, skills=skills, los=los, custom_los=custom_los, advisor=advisor, additional_information=additional_information, skills_offering=skills_offering, skills_requesting=skills_requesting, location=location
+                    name=name, class_year=class_year, primary_major=primary_major, secondary_major=secondary_major, primary_concentration=primary_concentration, secondary_concentration=secondary_concentration, special_concentration=special_concentration, minor=minor, minor_concentration=minor_concentration,title=title, abstract=abstract,keywords=keywords, feature=feature, hsr_review=hsr_review, skills=skills, los=los, custom_los=custom_los, advisor=advisor, skills_offering=skills_offering, skills_requesting=skills_requesting, location=location
                     )
 
                 db.session.add(new_project)
