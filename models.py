@@ -62,6 +62,7 @@ class UserProject(db.Model):
 
     title = db.Column(db.String())
     abstract = db.Column(db.String())
+    # project_link = db.Column(db.String())
     keywords = db.Column(db.String())
     feature = db.Column(db.String())
     hsr_review = db.Column(db.String())
