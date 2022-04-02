@@ -40,6 +40,120 @@ class Login(db.Model):
     def __repr__(self):
         return '<Login info {}>'.format(self.email)
 
+
+class User(db.Model):
+    """
+    Class defining model for user info
+    """
+
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("logins.id"))
+    name = db.Column(db.String(128))
+    class_year = db.Column(db.Integer)
+    primary_major = db.Column(db.String(128))
+    secondary_major = db.Column(db.String(128))
+    primary_concentration = db.Column(db.String(256))
+    secondary_concentration = db.Column(db.String(256))
+    special_concentration = db.Column(db.String())
+    minor = db.Column(db.String(128))
+    minor_concentration = db.Column(db.String(256))
+
+    logins = relationship(Login)
+
+    __ts_vector__ = to_tsvector_ix(
+        'name', 'primary_major', 'secondary_major', 'primary_concentration', 'secondary_concentration', 'special_concentration', 'minor', 'minor_concentration'
+        )
+
+    __table_args__ = (
+        Index('user_index', __ts_vector__, postgresql_using='gin'),
+    )
+
+    def __repr__(self):
+        return '<User info: {}>'.format(self.name)
+
+
+# class User(db.Model):
+#     """
+#     Class defining model for user info
+#     """
+
+#     __tablename__ = 'users'
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey("logins.id"))
+#     name = db.Column(db.String(128))
+#     class_year = db.Column(db.Integer)
+#     primary_major = db.Column(db.String(128))
+#     secondary_major = db.Column(db.String(128))
+#     primary_concentration = db.Column(db.String(256))
+#     secondary_concentration = db.Column(db.String(256))
+#     special_concentration = db.Column(db.String())
+#     minor = db.Column(db.String(128))
+#     minor_concentration = db.Column(db.String(256))
+
+#     logins = relationship(Login)
+
+#     __ts_vector__ = to_tsvector_ix(
+#         'name', 'primary_major', 'secondary_major', 'primary_concentration', 'secondary_concentration', 'special_concentration', 'minor', 'minor_concentration'
+#         )
+
+#     __table_args__ = (
+#         Index('user_index', __ts_vector__, postgresql_using='gin'),
+#     )
+
+#     def __repr__(self):
+#         return '<User info: {}>'.format(self.name)
+
+
+# class Project(db.Model):
+#     """
+#     Class defining model for user's Capstone project
+#     """
+
+#     __tablename__ = 'projects'
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey("logins.id"))
+#     title = db.Column(db.String(256))
+#     abstract = db.Column(db.String(256))
+#     project_link = db.Column(db.String())
+#     prospectus_description = db.Column(db.String())
+#     prospectus_link = db.Column(db.String())
+#     prospectus_secondary_file = db.Column(db.String())
+#     cp_courses = db.Column(db.String())
+#     keywords = db.Column(db.String())
+#     feature = db.Column(db.String())
+#     hsr_review = db.Column(db.String())
+#     # skills = db.Column(db.String())
+#     # los = db.Column(db.String())
+#     # custom_los = db.Column(db.String())
+#     # advisor = db.Column(db.String())
+#     # skills_offering = db.Column(db.String())
+#     # skills_requesting = db.Column(db.String())
+#     # location = db.Column(db.String())
+#     # additional_information = db.Column(db.String())
+#     last_updated = db.Column(db.DateTime, index=True, default=datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S'))
+
+#     logins = relationship(Login)
+
+#     # __ts_vector__ = to_tsvector_ix(
+#     #     'title', 'abstract', 'prospectus_description', 'cp_courses', 'keywords', 'feature', 'hsr_review', 'skills', 'los', 'custom_los', 'advisor', 'skills_offering', 'skills_requesting', 'location', 'additional_information'
+#     #     )
+
+#     __ts_vector__ = to_tsvector_ix(
+#         'title', 'abstract', 'prospectus_description'
+#         )
+
+#     __table_args__ = (
+#         Index('project_index', __ts_vector__, postgresql_using='gin'),
+#     )
+
+#     def __repr__(self):
+#         return '<Capstone info {}>'.format(self.title)
+
+
 class UserProject(db.Model):
     """
     Class defining model for user info and their Capstone project
@@ -58,15 +172,11 @@ class UserProject(db.Model):
     special_concentration = db.Column(db.String())
     minor = db.Column(db.String(128))
     minor_concentration = db.Column(db.String(256))
-    
+
 
     title = db.Column(db.String())
     abstract = db.Column(db.String())
     project_link = db.Column(db.String())
-    prospectus_description = db.Column(db.String())
-    prospectus_link = db.Column(db.String())
-    prospectus_secondary_file = db.Column(db.String())
-    cp_courses = db.Column(db.String())
     keywords = db.Column(db.String())
     feature = db.Column(db.String())
     hsr_review = db.Column(db.String())
@@ -77,14 +187,13 @@ class UserProject(db.Model):
     skills_offering = db.Column(db.String())
     skills_requesting = db.Column(db.String())
     location = db.Column(db.String())
-    additional_information = db.Column(db.String())
     last_updated = db.Column(db.DateTime, index=True, default=datetime.utcnow().strftime('%m/%d/%Y %H:%M:%S'))
 
     logins = relationship(Login)
 
     __ts_vector__ = to_tsvector_ix(
         'name', 'primary_major', 'secondary_major', 'primary_concentration', 'secondary_concentration', 'special_concentration', 'minor', 'minor_concentration',
-        'title', 'abstract', 'prospectus_description', 'cp_courses', 'keywords', 'feature', 'hsr_review', 'skills', 'los', 'custom_los', 'advisor', 'skills_offering', 'skills_requesting', 'location', 'additional_information'
+        'title', 'abstract', 'keywords', 'feature', 'hsr_review', 'skills', 'los', 'custom_los', 'advisor', 'skills_offering', 'skills_requesting', 'location',
     )
 
     __table_args__ = (
@@ -93,3 +202,4 @@ class UserProject(db.Model):
 
     def __repr__(self):
         return '<User capstone info {}: {}>'.format(self.name, self.title)
+

@@ -10,7 +10,7 @@ def deploy():
     # Import necessary files and packages
     from app import create_app, db
     from flask_migrate import upgrade, migrate, init, stamp
-    from models import Login, UserProject
+    from models import Login, User, UserProject
 
     # Create application context
     app = create_app()

@@ -75,7 +75,7 @@ df["second_major"] = second_majors
 df["minor"] = minors
 
 
-# Logins model
+#### Logins model ####
 logins_cols = ["id", "public_id", "email"]
 logins_data_cols = ["id", "id","email"]
 logins_default_cols = ["password"]
@@ -88,31 +88,43 @@ logins_to_add = create_list_of_data(\
     default_vals=logins_default_vals\
     )
 
+
+#### Users model ####
+users_cols = ["id", "user_id", "name",\
+            "primary_major", "secondary_major", "minor"]
+users_data_cols = ["id", "id","name",\
+                "primary_major", "second_major", "minor"]
+
+users_default_cols = ["class_year"]
+users_default_vals = [2019]
+
+users_to_add = create_list_of_data(\
+    data=df,\
+    data_cols=users_data_cols,\
+    model_cols=users_cols,\
+    default_cols=users_default_cols,\
+    default_vals=users_default_vals\
+    )
+
+
+#### Projects model ####
 # Columns in projects model
-user_projects_cols = ["id", "user_id", "name",\
-            "primary_major", "secondary_major", "minor",\
+projects_cols = ["id", "user_id",\
             "title", "prospectus_description", "abstract",\
             "prospectus_link", "project_link", "prospectus_secondary_file",\
             "cp_courses", "advisor", "additional_information"]
 
 # Columns from CSV file
-user_projects_data_cols = ["id", "id", "name",\
-            "primary_major", "second_major", "minor",\
+projects_data_cols = ["id", "id",\
             "title", "prospectus_description", "abstract",\
             "prospectus_link", "project_link", "prospectus_secondary_file",\
             "cp_courses", "advisor", "additional_information"]
 
-# Default columns and their default values
-user_projects_default_cols = ["class_year"]
-user_projects_default_vals = [2019]
-
 # Create list of data from all columns and values above
-user_projects_to_add = create_list_of_data(\
+projects_to_add = create_list_of_data(\
     data=df,\
-    data_cols=user_projects_data_cols,\
-    model_cols=user_projects_cols,\
-    default_cols=user_projects_default_cols,\
-    default_vals=user_projects_default_vals\
+    data_cols=projects_data_cols,\
+    model_cols=projects_cols,\
     )
 
 
@@ -125,7 +137,7 @@ def insert_data():
     my_app.app_context().push()
 
     # List of keys with (list_of_data, model) to iterate
-    keys = [(logins_to_add, Login), (user_projects_to_add, UserProject)]
+    keys = [(logins_to_add, Login), (users_to_add, User), (projects_to_add, Project)]
     # Insert data
     for dict_to_add, table in keys:
         for dict_row in dict_to_add:
