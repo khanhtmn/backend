@@ -33,7 +33,7 @@ class Login(db.Model):
     __tablename__ = 'logins'
 
     id = db.Column(db.Integer, primary_key=True)
-    public_id = db.Column(db.Integer) 
+    public_id = db.Column(db.String())
     email = db.Column(db.String(120), index=True, unique=True)
     password = db.Column(db.String(128)) # hashed_password
 
@@ -62,6 +62,7 @@ class UserProject(db.Model):
 
     title = db.Column(db.String())
     abstract = db.Column(db.String())
+    project_link = db.Column(db.String())
     keywords = db.Column(db.String())
     feature = db.Column(db.String())
     hsr_review = db.Column(db.String())
