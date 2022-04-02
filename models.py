@@ -1,6 +1,6 @@
-'''
+"""
 Define models for database schema
-'''
+"""
 
 # from sqlalchemy.sql import func
     
@@ -14,6 +14,7 @@ from app import db
 
 CONFIG = 'english'
 
+# Create tsvector for Postgres fulltext search
 def to_tsvector_ix(*columns):
     s = " || ' ' || ".join(columns)
     return func.to_tsvector(CONFIG, text(s))
@@ -77,6 +78,7 @@ class UserProject(db.Model):
 
     logins = relationship(Login)
 
+    # Define the tsvector for Postgres fulltext search
     __ts_vector__ = to_tsvector_ix(
         'name', 'primary_major', 'secondary_major', 'primary_concentration', 'secondary_concentration', 'special_concentration', 'minor', 'minor_concentration',
         'title', 'abstract', 'keywords', 'feature', 'hsr_review', 'skills', 'los', 'custom_los', 'advisor', 'skills_offering', 'skills_requesting', 'location',

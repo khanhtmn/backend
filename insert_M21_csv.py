@@ -1,5 +1,5 @@
 """
-This module is used to import data from the csv file to the database
+This module is used to import M21 csv file data to the database
 """
 
 import pandas as pd

@@ -1,7 +1,7 @@
-'''
+"""
 This module is used to run deployment tasks
 and to update the database
-'''
+"""
 
 
 def deploy():

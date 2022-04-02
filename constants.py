@@ -1,3 +1,7 @@
+"""
+This file contains the constant that may be handy while coding
+"""
+
 import enum
 
 class ClassEnum(str, enum.Enum):

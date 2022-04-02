@@ -1,4 +1,4 @@
-"""Flask configuration."""
+"""Flask configuration for different environment"""
 
 import os
 

@@ -1,3 +1,8 @@
+"""
+Utils function to create list of data from CSV files
+Used for insert csv script
+"""
+
 from datetime import datetime
 
 def create_list_of_data(data, data_cols, model_cols, default_cols=None, default_vals=None):
